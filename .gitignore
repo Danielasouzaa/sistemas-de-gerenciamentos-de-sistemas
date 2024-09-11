@@ -1,0 +1,22 @@
+# Ignore arquivos e pastas gerados automaticamente pelo sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignore pastas de configuração de ambiente e IDEs
+.idea/
+.vscode/
+
+# Ignore arquivos de log e de cache
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignore credenciais ou arquivos de configuração sensíveis
+.env
+config.php
+
+# Ignore arquivos de banco de dados locais
+*.db
+*.sql
+*.sqlite
