@@ -1,0 +1,75 @@
+-- Cria o banco de dados
+CREATE DATABASE GerenciamentoEventos;
+
+-- Seleciona o banco de dados
+USE GerenciamentoEventos;
+
+-- Cria a tabela Eventos
+CREATE TABLE Eventos (
+    EventoID INT AUTO_INCREMENT PRIMARY KEY,
+    NomeEvento VARCHAR(255) NOT NULL,
+    LocalEvento VARCHAR(255),
+    DataEvento DATE
+);
+
+-- Cria a tabela Participantes
+CREATE TABLE Participantes (
+    ParticipanteID INT AUTO_INCREMENT PRIMARY KEY,
+    NomeParticipante VARCHAR(255) NOT NULL,
+    Email VARCHAR(255),
+    Telefone VARCHAR(20)
+);
+
+-- Cria a tabela Inscricoes
+CREATE TABLE Inscricoes (
+    InscricaoID INT AUTO_INCREMENT PRIMARY KEY,
+    EventoID INT,
+    ParticipanteID INT,
+    DataInscricao DATE,
+    FOREIGN KEY (EventoID) REFERENCES Eventos(EventoID),
+    FOREIGN KEY (ParticipanteID) REFERENCES Participantes(ParticipanteID)
+);
+
+-- Insere registros na tabela Eventos
+INSERT INTO Eventos (NomeEvento, LocalEvento, DataEvento)
+VALUES 
+('Workshop de Tecnologia', 'Auditório 1', '2024-09-15'),
+('Seminário de IA', 'Sala 305', '2024-10-10');
+
+-- Insere registros na tabela Participantes
+INSERT INTO Participantes (NomeParticipante, Email, Telefone)
+VALUES 
+('João Silva', 'joao@email.com', '1234-5678'),
+('Maria Souza', 'maria@email.com', '9876-5432');
+
+-- Insere registros na tabela Inscricoes
+INSERT INTO Inscricoes (EventoID, ParticipanteID, DataInscricao)
+VALUES 
+(1, 1, '2024-09-01'),
+(1, 2, '2024-09-02'),
+(2, 1, '2024-09-03');
+
+-- Consulta todos os eventos
+SELECT * FROM Eventos;
+
+-- Consulta participantes inscritos em um evento específico
+SELECT p.NomeParticipante, p.Email, p.Telefone 
+FROM Inscricoes i 
+JOIN Participantes p ON i.ParticipanteID = p.ParticipanteID 
+WHERE i.EventoID = 1;
+
+-- Atualiza o local e a data de um evento
+UPDATE Eventos 
+SET LocalEvento = 'Auditório 2', DataEvento = '2024-09-12' 
+WHERE EventoID = 1;
+
+-- Remove um evento da tabela Eventos
+DELETE FROM Eventos 
+WHERE EventoID = 2;
+
+DELETE FROM Inscricoes
+WHERE EventoID = 2;
+
+DELETE FROM Eventos
+WHERE EventoID = 2;
+
